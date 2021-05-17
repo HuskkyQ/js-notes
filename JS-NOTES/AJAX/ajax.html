@@ -1,0 +1,99 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: wangsf
+ * @Date: 2021-05-13 19:42:10
+ * @LastEditors: wangsf
+ * @LastEditTime: 2021-05-13 21:17:26
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xsxs</title>
+  <style>
+    .box {
+      /* float: left; */
+      /* display: table-caption; */
+      /* overflow: visible; */
+      /* border: 1px solid red; */
+      /* overflow: auto; */
+    }
+    .cube {
+      width: 100px;
+      height: 100px;
+      background: #000;
+      margin: 100px;
+      display: inline-block;
+      /* float: left; */
+    }
+    .cube1 {
+      width: 100px;
+      height: 100px;
+      background: blue;
+      float: left;
+    }
+    .cube2 {
+      width: 200px;
+      height: 200px;
+      background: red;
+      display: grid;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- <div class="box">
+      <span class="cube"></span>
+    </div> -->
+    <!-- <div class="box">
+      <div class="cube"></div>
+    </div> -->
+    
+    <div class="box1">
+      <div class="cube1"></div>
+      <div class="cube2"></div>
+    </div>
+    
+  </div>
+  
+  <script>
+    var obj = {
+      uname: 'ssss',
+      age: '23',
+      say: () => {
+        console.log( this.age + 'is' + this.uname + 'is')
+      }
+    }
+    obj.say();
+
+    function Person(name, age) {
+      this.name = name;
+      this.age = age;
+      this.say = () => {
+        console.log(this.name + 'is' + this.age)
+      }
+    }
+    let p1 = new Person('sdsd', 18)
+    p1.say();
+
+    var person = {
+      firstName: '三',
+      lastName: '张',
+      get fullName() {
+        return this.lastName + this.firstName
+      },
+      set fullName(fullName) {
+        let [lastName, firstName] = fullName.split(',');
+        this.lastName = lastName;
+        this.firstName = firstName;
+      }
+    }
+    console.log(person.fullName)
+    person.fullName ='李,四'
+    console.log(person.fullName)
+  </script>
+</body>
+</html>

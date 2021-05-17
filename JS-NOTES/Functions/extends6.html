@@ -1,0 +1,98 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: wangsf
+ * @Date: 2021-05-14 17:27:44
+ * @LastEditors: wangsf
+ * @LastEditTime: 2021-05-17 09:21:38
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6种实现继承的方法</title>
+</head>
+<body>
+  <script>
+    // 1. 原型链继承: 将父类的实例作为子类的原型
+    // function Parent() {
+    //   this.isShow = true;
+    //   this.info = {
+    //     name: 'wushi',
+    //     age: 18
+    //   }
+    // }
+    // Parent.prototype.getInfo = function() {
+    //   console.log(this.info);
+    //   console.log(this.isShow);// true
+    // }
+
+    // function Child() {};
+    // Child.prototype = new Parent(); // 此处操作即是 将父类的实例作为子类的原型
+
+    // let child1 = new Child();
+    // child1.info.gender = "male";
+    // child1.getInfo(); // {name: 'wushi', age: 18, gender: 'male'}
+
+    // let child2 = new Child();
+    // child2.getInfo(); // {name: 'wushi', age: 18, gender: 'male'}
+    // child2.isShow = false;
+
+    // console.log(child1.isShow); // false
+    // 优点：父类方法可以复用
+    // 缺点：
+    //    1.父类的所有 所用属性 会被子类共享，更改一个子类的引用属性，其他子类也会受影响
+    //    2.子类型实例不能给父类型构造函数传参
+    
+    // 2. 构造函数继承
+    function Parent() {
+      this.info = {
+        name: 'wushi',
+        age: 19
+      }
+    }
+
+    function Child() {
+      Parent.call(this) // 此处操作即是 使用call/apply 改变 构造函数Parentd 上下文
+    }
+
+    let child1 = new Child();
+    child1.info.gender = "male";
+    console.log(child1.info); // {name: "wushi", age: 19, gender: "male"}
+
+    let child2 = new Child();
+    console.log(child2.info); // {name: "wushi", age: 19}
+
+    // 传递参数
+    function newParent(name) {
+      this.info = {
+        name: name
+      }
+    }
+    newParent.prototype.getName = function() {
+      console.log(this.info.name)
+    }
+    let newparent = new newParent('父亲')
+    newparent.getName(); // 父亲
+
+    function newChild(name) {
+      newParent.call(this, name);
+      this.age = 18
+    }
+    let newChild1 = new newChild('哈哈');
+    console.log(newChild1.info.name); // 哈哈
+    console.log(newChild1.age); // 18
+    newChild1.getName(); // Uncaught TypeError
+    let newChild2 = new newChild('呵呵');
+    console.log(newChild2.info.name); // 呵呵
+    console.log(newChild2.age); // 18
+
+    // 优点： 1.可以在子类构造函数中向父类传参
+    //       2.父类的引用属性不会被共享
+    // 缺点： 子类不能访问父类原型上定义的方法，因此所有的方法属性可以写在构造函数中，每次创建实例都会初始化
+
+  </script>
+</body>
+</html>

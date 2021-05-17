@@ -1,0 +1,151 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: wangsf
+ * @Date: 2021-05-12 20:18:12
+ * @LastEditors: wangsf
+ * @LastEditTime: 2021-05-13 09:18:50
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>防抖与节流</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box"></div>
+
+  <input type="text" id="inputs">
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    // 1.防抖的概念
+    // 对于事件被触发n秒后再执行的回调 -> 延迟执行
+    // 如果在这n秒内再次触发事件，重新开始计时
+
+    var oBox = document.querySelector('div')
+    // var timer = null;
+    // oBox.onmouseover = function() {
+    //   clearTimeout(timer);
+    //   timer = setTimeout(() => {
+    //     console.log(1)
+    //   },1000)
+    // }
+
+    // function test() {
+    //   console.log(1)
+    // }
+
+    // oBox.onmouseover = debounce(test, 1000, true)
+
+    /**
+     * @name: 
+     * @test: test font
+     * @msg: 
+     * @param {*} fn 回调函数
+     * @param {*} time 延迟触发时间
+     * @param {*} triggleNow 是否延迟触发
+     * @return {*}
+     */
+    function debounce(fn, time, triggleNow) {
+      var t = null;
+      var debounced = function() {
+        var _self = this,
+            args = arguments;
+        if(t) {
+          clearTimeout(t)
+        }
+        if(triggleNow) {
+          var exec = !t; // 是否立即执行
+          // 关键点在于 clearTimeout 只是取消定时触发的功能 保留id 不是将t赋值null
+          t = setTimeout(function() {
+            t = null;
+          }, time)
+          if(exec) {
+            fn.apply(_self, args)
+          }
+        } else {
+          t = setTimeout(function() {
+            fn.apply(_self, args)
+          }, time)
+        }
+      }
+
+      debounced.remove = function() {
+        clearTimeout(t);
+        t = null;
+      }
+
+      return debounced;
+    }
+
+
+    // 2.节流的概念
+    // 事件被触发，n秒内只执行一次事件处理函数
+    // 输入验证
+
+    // var oInput = document.getElementById('inputs')
+    var oInput = document.querySelector('#inputs')
+    var t = null;
+    oInput.onkeyup = throttle(check, 1000);
+    // function check() {
+    //   clearTimeout(t);
+    //   var val = this.value;
+    //   t = setTimeout(() => {
+    //     if(val.length < 6) {
+    //       console.log('Invalid length');
+    //     } else {
+    //       console.log('Success');
+    //     }
+    //   }, 1000)
+    // }
+
+    function check() {
+      var val = this.value;
+      if(val.length < 6) {
+        console.log('Invalid length');
+      } else {
+        console.log('Success');
+      }
+    }
+
+    /**
+     * @name: 
+     * @test: test font
+     * @msg: 
+     * @param {*} fn
+     * @param {*} delay
+     * @return {*}
+     */
+    function throttle(fn, delay) {
+      var t = null,
+          begin = new Date().getTime();
+      return function() {
+        var _self = this,
+            args = arguments,
+            current = new Date().getTime();
+
+        clearTimeout(t);
+        if(current - begin >= delay) {
+          fn.apply(_self, args);
+          begin = current;
+        } else {
+          t = setTimeout(() => {
+            fn.apply(_self, args);
+          }, delay)
+        }
+      }
+    }
+  </script>
+</body>
+</html>
