@@ -4,7 +4,7 @@
  * @Author: wangsf
  * @Date: 2021-05-17 19:21:03
  * @LastEditors: wangsf
- * @LastEditTime: 2021-05-17 20:12:35
+ * @LastEditTime: 2021-05-17 20:20:30
 -->
 # Proxy
 
@@ -35,6 +35,7 @@
   由于没有钩子，所有对proxy的操作都直接转发给target对象了。
   
 #### get/set 读取时的处理
+  get:
   ```
     let numbers = [1, 2, 3];
 
@@ -52,6 +53,7 @@
     console.log(numbers[1]); // 2
     console.log(numbers[12]); // 0
   ```
+  get:
   ```
     let dictionary = {
       'Hello': 'Hola',
@@ -75,6 +77,7 @@
     console.log(dictionary['Hello'])
     console.log(dictionary['Well'])
   ```
+  set:
   ```
     let numbers = [];
 
