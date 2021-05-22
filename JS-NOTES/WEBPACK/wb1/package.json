@@ -1,0 +1,11 @@
+{
+  "name": "wb1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0"
+  },
+  "devDependencies": {}
+}
