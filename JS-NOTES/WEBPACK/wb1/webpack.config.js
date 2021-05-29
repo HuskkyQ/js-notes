@@ -4,7 +4,7 @@
  * @Author: wangsf
  * @Date: 2021-05-22 14:00:14
  * @LastEditors: wangsf
- * @LastEditTime: 2021-05-22 15:21:07
+ * @LastEditTime: 2021-05-24 09:20:58
  */
 const {resolve} = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -45,7 +45,7 @@ module.exports = {
         // 使用一个loader
         // 下载 url-loader file-loader
         loader: 'url-loader',
-        options: {
+        options: { // 配置
           // 图片大小 小于8KB，就会被处理成base64格式
           limit: 8 * 1024,
           // 重命名
